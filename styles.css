@@ -1,61 +1,312 @@
-/* Grayscale cubby bookcase: four columns, boards staggered column to column. */
-:root{--frame:#555;--void:#050505;--line:#d6d6d6;--paper:#e6e6e6}
-*{box-sizing:border-box}
-html,body{margin:0;background:#1b1b1b;color:var(--paper);font-family:Georgia,"Times New Roman",serif}
-body{min-height:100vh;display:grid;place-content:center;gap:18px;padding:24px}
-
-.case{
-  display:grid;grid-template-columns:1fr 1.6fr 1.25fr 1.6fr;gap:8px;
-  width:min(1100px,94vw);height:440px;
-  background:var(--frame);border:8px solid var(--frame);
+@font-face {
+    font-family: "Great Vibes";
+    src: url("GreatVibes-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
-.col{display:flex;flex-direction:column;background:var(--void);min-width:0}
-.shelf{
-  flex:none;height:var(--sh);
-  display:flex;align-items:flex-end;gap:2px;padding:0 6px;overflow:hidden;
-  border-bottom:8px solid var(--frame);
-}
-.col .shelf:last-child{border-bottom:0}
 
-/* ---------- plain books: divs with borders ---------- */
-.b{
-  flex:none;position:relative;
-  width:var(--w);height:var(--h);
-  background-color:var(--c);
-  border:2px solid var(--line);border-bottom:0;border-radius:2px 2px 0 0;
-}
-.s1{background-image:linear-gradient(#000a,#000a),linear-gradient(#000a,#000a);
-  background-size:100% 5px;background-position:0 14%,0 24%;background-repeat:no-repeat}
-.s2{background-image:linear-gradient(var(--paper),var(--paper)),linear-gradient(#000,#000);
-  background-size:100% 26%,100% 4px;background-position:0 34%,0 22%;background-repeat:no-repeat}
-.s3{background-image:linear-gradient(#fff7,#fff7),linear-gradient(#fff7,#fff7);
-  background-size:100% 4px;background-position:0 76%,0 86%;background-repeat:no-repeat}
-.s4::before{content:"";position:absolute;inset:6px 0 auto;height:45%;
-  background:radial-gradient(circle,#ddd 2px,transparent 2.6px) 50% 0/100% 11px repeat-y}
-.lean{transform:rotate(-9deg);transform-origin:bottom left;margin-right:12px}
 
-/* ---------- clickable books: buttons with picture spines ---------- */
-.book{
-  flex:none;position:relative;
-  width:var(--w);height:var(--h);margin:0;padding:6px 0 8px;
-  background:var(--c,#d0d0d0);color:#111;
-  border:2px solid var(--line);border-bottom:0;border-radius:2px 2px 0 0;
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  font:inherit;cursor:pointer;transition:transform .18s ease;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-.book.dark{background:#222;color:#eee}
-.book svg{width:34px;height:34px;flex:none;padding:3px;border:2px solid currentColor;border-radius:50%;
-  fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.book span{writing-mode:vertical-rl;font-size:12px;letter-spacing:.06em;white-space:nowrap;
-  border-top:2px solid currentColor;border-bottom:2px solid currentColor;padding:5px 0}
-.book:hover{transform:translateY(-8px)}
-.book:focus-visible{outline:3px solid #fff;outline-offset:2px}
-.book[aria-pressed="true"]{transform:translateY(-14px);outline:2px solid #fff;outline-offset:2px}
 
-.caption{margin:0;text-align:center;font-size:1.05rem;min-height:1.6em}
 
-@media (max-width:760px){
-  .case{grid-template-columns:1fr 1fr;height:auto}
-  .col{height:440px}
+body {
+    background-color: #111;
+    min-height: 100vh;
+    padding: 10px;
 }
-@media (prefers-reduced-motion:reduce){.book{transition:none}}
+h1{
+  color: white; 
+  font-family: "Great Vibes", cursive; 
+  text-align: center; 
+  padding: 30px; 
+
+}
+.top{
+  display: flex;
+  justify-content: center;
+  text-align: center;  
+}
+/* Entire bookshelf */
+.bookshelf {
+    width: 100%;
+    max-width: 1800px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background-color: #160e0b;
+    border: 12px solid #71351e;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Horizontal shelf rows */
+.shelf-row {
+    display: flex;
+    flex: 1;
+    min-height: 180px;
+    border-bottom: 12px solid #71351e;
+}
+
+/* Individual compartments */
+.shelf {
+    flex: 1;
+    min-width: 0;
+    border-right: 12px solid #71351e;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 4px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+/* Vary compartment widths */
+.shelf:nth-child(2) {
+    flex: 1.4;
+}
+
+.shelf:nth-child(3) {
+    flex: 0.8;
+}
+
+/* Books */
+.book {
+    width: 25px;
+    height: 75%;
+    background-color: #8b2635;
+    border: 2px solid #29201c;
+    flex-shrink: 0;
+}
+
+.book:nth-child(2n) {
+    background-color: #254c60;
+    height: 65%;
+}
+
+.book:nth-child(3n) {
+    background-color: #b05b32;
+    height: 85%;
+}
+
+.book:nth-child(4n) {
+    background-color: #d4ad70;
+    height: 55%;
+}
+
+.book:nth-child(5n) {
+    background-color: #292d36;
+    height: 95%;
+}
+
+/* Vary row heights */
+.shelf-row:nth-child(2) {
+    flex: 1.2;
+}
+
+.shelf-row:nth-child(3) {
+    flex: 0.8;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media screen and (max-width: 900px) {
+    .shelf {
+        gap: 2px;
+    }
+
+    .book {
+        width: 18px;
+    }
+
+    .shelf-row {
+        min-height: 160px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media screen and (max-width: 600px) {
+
+    body {
+        padding: 5px;
+    }
+
+    .bookshelf {
+        width: 100%;
+        min-height: auto;
+        border-width: 8px;
+    }
+
+    /* Change from horizontal rows to vertical rows */
+    .shelf-row {
+        flex-direction: column;
+        flex: none;
+        min-height: auto;
+    }
+
+    /* Each compartment becomes its own row */
+    .shelf {
+        flex: none !important;
+        width: 100%;
+        height: 180px;
+        border-right: none;
+        border-bottom: 8px solid #71351e;
+        padding: 8px;
+        gap: 4px;
+    }
+
+    .book {
+        width: 25px;
+    }
+}
+
+.modal{
+  padding: 30px; 
+  width: 500px; 
+  height: 500px;
+  position: absolute; 
+  border: 4px solid white; 
+  color: white; 
+  border-radius: 20px; 
+  background-color: #5c1409
+}
+
+:root{
+  --backgroundcolor: #1a0e34;
+  --color: #8f4401;
+  --secondary: 	#5c1409;
+  --highlight: 	#af6a01;
+}
+
+/* =========================
+   ADDITIONS
+========================= */
+
+[hidden] { display: none !important; }
+
+/* Clickable books (buttons) */
+.book-btn {
+    cursor: pointer;
+    font: inherit;
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+.book-btn:hover,
+.book-btn:focus-visible {
+    transform: translateY(-6px);
+    filter: brightness(1.25);
+    outline: none;
+}
+
+/* Modal: hidden by default, centered over the page when shown */
+.modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    transform: none;
+    height: fit-content;
+    text-align: center;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.65);
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: 2px solid white;
+    color: white;
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.modal-close:hover { background-color: #af6a01; }
+
+.modal-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+.modal-spine {
+    width: 34px;
+    height: 130px;
+    flex-shrink: 0;
+    border: 2px solid #29201c;
+}
+.modal-info h3 { margin-bottom: 8px; }
+
+/* Centered picture placement - NO background (for 3D images) */
+.modal-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    margin: 10px 0 20px;
+    background: none;
+}
+.modal-image img {
+    max-width: 100%;
+    max-height: 220px;
+    object-fit: contain;
+    background: none;
+}
+.modal-image-placeholder {
+    opacity: 0.5;
+    font-style: italic;
+}
+
+/* =========================
+   WELCOME (home.html)
+========================= */
+
+.home-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.welcome {
+    text-align: center;
+    padding: 40px;
+    border: 12px solid #71351e;
+    background-color: #160e0b;
+    max-width: 700px;
+    width: 100%;
+}
+.welcome p {
+    color: white;
+    font-family: cursive;
+    margin-bottom: 30px;
+}
+.start-btn {
+    display: inline-block;
+    padding: 14px 36px;
+    font-family: cursive;
+    font-size: 1.3rem;
+    color: white;
+    text-decoration: none;
+    background-color: #5c1409;
+    border: 4px solid white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.start-btn:hover { background-color: #af6a01; }
