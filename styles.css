@@ -143,32 +143,19 @@ h1{
         padding: 5px;
     }
 
+    /* Keep the 3-row layout; page scrolls sideways instead of restacking */
     .bookshelf {
-        width: 100%;
-        min-height: auto;
+        min-width: 700px;
         border-width: 8px;
     }
 
-    /* Change from horizontal rows to vertical rows */
     .shelf-row {
-        flex-direction: column;
-        flex: none;
-        min-height: auto;
+        min-height: 150px;
+        border-bottom-width: 8px;
     }
 
-    /* Each compartment becomes its own row */
     .shelf {
-        flex: none !important;
-        width: 100%;
-        height: 180px;
-        border-right: none;
-        border-bottom: 8px solid #71351e;
-        padding: 8px;
-        gap: 4px;
-    }
-
-    .book {
-        width: 25px;
+        border-right-width: 8px;
     }
 }
 
@@ -180,7 +167,6 @@ h1{
   border: 4px solid white; 
   color: white; 
   border-radius: 20px; 
-  background-color: #5c1409
 }
 
 :root{
@@ -222,6 +208,9 @@ h1{
     overflow-y: auto;
     z-index: 100;
     box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.65);
+    background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
 }
 
 .modal-close {
@@ -247,12 +236,7 @@ h1{
     margin-bottom: 20px;
     text-align: left;
 }
-.modal-spine {
-    width: 34px;
-    height: 130px;
-    flex-shrink: 0;
-    border: 2px solid #29201c;
-}
+
 .modal-info h3 { margin-bottom: 8px; }
 
 /* Centered picture placement - NO background (for 3D images) */
@@ -273,6 +257,18 @@ h1{
 .modal-image-placeholder {
     opacity: 0.5;
     font-style: italic;
+}
+
+.modal-spine {
+    width: 34px;
+    height: 130px;
+    flex-shrink: 0;
+    border: 2px solid #29201c;
+
+    /* Allows a book spine image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* =========================
@@ -310,3 +306,35 @@ h1{
     cursor: pointer;
 }
 .start-btn:hover { background-color: #af6a01; }
+
+/* =========================
+   SPINES + MODAL BACKGROUND
+========================= */
+
+/* Shelf book spines (image set from data-spine-image in script.js) */
+.book-btn {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Modal: no solid color. The background image comes from data-background-image */
+.modal {
+    background-color: transparent;
+}
+
+/* Placeholder look shown until a background image is set */
+.modal:not(.has-bg) {
+    border-style: dashed;
+    background-color: rgba(0, 0, 0, 0.6); /* readability only; disappears once an image is set */
+}
+.modal-bg-placeholder {
+    display: block;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    font-style: italic;
+    opacity: 0.6;
+}
+.modal.has-bg .modal-bg-placeholder {
+    display: none;
+}
