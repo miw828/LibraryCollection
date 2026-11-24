@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -7,6 +6,8 @@
 
 body {
     background-color: #111;
+    font-family: 'Newsreader', Georgia, serif;
+    color: #f3e9d2;
     min-height: 100vh;
     padding: 10px;
 }
@@ -17,8 +18,9 @@ body {
     max-width: 1800px;
     min-height: 100vh;
     margin: 0 auto;
-    background-color: #160e0b;
-    border: 12px solid #71351e;
+    background: url('wood.jpg') center / cover no-repeat;
+    background-origin: border-box;
+    border: 12px solid transparent;
 
     display: flex;
     flex-direction: column;
@@ -29,14 +31,16 @@ body {
     display: flex;
     flex: 1;
     min-height: 180px;
-    border-bottom: 12px solid #71351e;
+    border-bottom: 12px solid transparent;
 }
 
 /* Individual compartments */
 .shelf {
     flex: 1;
     min-width: 0;
-    border-right: 12px solid #71351e;
+    border-right: 12px solid transparent;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('wood.jpg') center / cover no-repeat;
+    background-clip: padding-box;
 
     display: flex;
     align-items: flex-end;
@@ -264,20 +268,20 @@ background-repeat: no-repeat;
 .welcome {
     text-align: center;
     padding: 40px;
-    border: 12px solid #71351e;
-    background-color: #160e0b;
+    border: 12px solid transparent;
+    background: url('wood.jpg') center / cover no-repeat;
+    background-origin: border-box;
     max-width: 700px;
     width: 100%;
 }
 .welcome p {
     color: white;
-    font-family: cursive;
     margin-bottom: 30px;
 }
 .start-btn {
     display: inline-block;
     padding: 14px 36px;
-    font-family: cursive;
+    font-family: 'Newsreader', Georgia, serif;
     font-size: 1.3rem;
     color: white;
     text-decoration: none;
@@ -320,3 +324,73 @@ background-repeat: no-repeat;
 .modal.has-bg .modal-bg-placeholder {
     display: none;
 }
+
+/* =========================
+   FONTS + PAGE HEADER
+========================= */
+
+h1, h2, h3 {
+    font-family: 'Great Vibes', cursive;
+    font-weight: 400;
+}
+.top { padding: 10px 0 20px; text-align: center; }
+.top h1 { font-size: 3rem; margin-bottom: 14px; }
+.library-nav, .welcome-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.book { background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
+
+/* =========================
+   COLLEGE (purple / green / cream)
+========================= */
+
+.college-page {
+    --purple: #3b1f5c;
+    --purple-dark: #24113a;
+    --green: #2f6b4f;
+    --green-light: #4a9a73;
+    --cream: #f5ecd5;
+    background-color: var(--purple-dark);
+    color: var(--cream);
+}
+.college-page .top h1 { color: var(--cream); }
+.college-page .start-btn {
+    background-color: var(--green);
+    border-color: var(--cream);
+    color: var(--cream);
+}
+.college-page .start-btn:hover { background-color: var(--green-light); }
+
+/* One big shelf, same wood look as the main bookshelf */
+.college-bookshelf {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    background: url('wood.jpg') center / cover no-repeat;
+    background-origin: border-box;
+    border: 12px solid transparent;
+}
+.college-shelf {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 24px;
+    min-height: 70vh;
+    padding: 20px;
+    border-bottom: 12px solid transparent;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('wood.jpg') center / cover no-repeat;
+    background-clip: padding-box;
+}
+.college-shelf .book { width: 70px; }
+
+/* Modal in the theme */
+.college-page .modal {
+    border-color: var(--cream);
+    color: var(--cream);
+}
+.college-page .modal:not(.has-bg) { background-color: rgba(36, 17, 58, 0.85); }
+.college-page .modal-close { border-color: var(--cream); color: var(--cream); }
+.college-page .modal-close:hover { background-color: var(--green); }
